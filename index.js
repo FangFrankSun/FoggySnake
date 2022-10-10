@@ -17,8 +17,8 @@ window.addEventListener("DOMContentLoaded", function (event) {
   let hardMode = false;
 
   // Configuration
-  const width = 15; // Grid width
-  const height = 15; // Grid height
+  const width = 16; // Grid width
+  const height = 16; // Grid height
 
   const speed = 200; // Milliseconds it takes for the snake to take a step in the grid
   let fadeSpeed = 5000; // milliseconds it takes the grid to disappear (initially)
@@ -130,7 +130,7 @@ window.addEventListener("DOMContentLoaded", function (event) {
       hardMode = true;
       fadeSpeed = 4000;
       fadeExponential = 1.025;
-      noteElement.innerHTML = `Hard mode. Press space to start!`;
+      noteElement.innerHTML = `Hard mode. Press space to begin!`;
       noteElement.style.opacity = 1;
       resetGame();
       return;
@@ -141,7 +141,7 @@ window.addEventListener("DOMContentLoaded", function (event) {
       hardMode = false;
       fadeSpeed = 5000;
       fadeExponential = 1.024;
-      noteElement.innerHTML = `Easy mode. Press space to start!`;
+      noteElement.innerHTML = `Easy mode. Press space to begin!`;
       noteElement.style.opacity = 1;
       resetGame();
       return;
@@ -256,13 +256,13 @@ window.addEventListener("DOMContentLoaded", function (event) {
       window.requestAnimationFrame(main);
     } catch (error) {
       // Write a note about restarting game and setting difficulty
-      const pressSpaceToStart = "Press space to reset the game.";
+      const pressSpaceToStart = "Press space to restart the game.";
       const changeMode = hardMode
-        ? "Back to easy mode? Press the letter E."
-        : "Ready for hard more? Press the letter H.";
+        ? "Too Hard?? Press E to Easy mode!"
+        : "Too Easy?? Press H to Hard mode!";
       const followMe =
-        'Follow me <a href="https://twitter.com/HunorBorbely" , target="_blank">@HunorBorbely</a>';
-      noteElement.innerHTML = `${error.message}. ${pressSpaceToStart} <div>${changeMode}</div> ${followMe}`;
+        'Follow me <a href="https://github.com/FangFrankSun" , target="_blank">@FangFrankSun</a>';
+      noteElement.innerHTML = `${error.message} ${pressSpaceToStart} <div>${changeMode}</div> ${followMe}`;
       noteElement.style.opacity = 1;
       containerElement.style.opacity = 1;
     }
@@ -398,36 +398,36 @@ window.addEventListener("DOMContentLoaded", function (event) {
     switch (snakeDirection) {
       case "right": {
         const nextPosition = headPosition + 1;
-        if (nextPosition % width == 0) throw Error("The snake hit the wall");
+        if (nextPosition % width == 0) throw Error("The snake hits the wall!");
         // Ignore the last snake part, it'll move out as the head moves in
         if (snakePositions.slice(1).includes(nextPosition))
-          throw Error("The snake bit itself");
+          throw Error("The snake eats himself!");
         return nextPosition;
       }
       case "left": {
         const nextPosition = headPosition - 1;
         if (nextPosition % width == width - 1 || nextPosition < 0)
-          throw Error("The snake hit the wall");
+          throw Error("The snake hits the wall!");
         // Ignore the last snake part, it'll move out as the head moves in
         if (snakePositions.slice(1).includes(nextPosition))
-          throw Error("The snake bit itself");
+          throw Error("The snake eats himself!");
         return nextPosition;
       }
       case "down": {
         const nextPosition = headPosition + width;
         if (nextPosition > width * height - 1)
-          throw Error("The snake hit the wall");
+          throw Error("The snake hits the wall!");
         // Ignore the last snake part, it'll move out as the head moves in
         if (snakePositions.slice(1).includes(nextPosition))
-          throw Error("The snake bit itself");
+          throw Error("The snake eats himself!");
         return nextPosition;
       }
       case "up": {
         const nextPosition = headPosition - width;
-        if (nextPosition < 0) throw Error("The snake hit the wall");
+        if (nextPosition < 0) throw Error("The snake hits the wall!");
         // Ignore the last snake part, it'll move out as the head moves in
         if (snakePositions.slice(1).includes(nextPosition))
-          throw Error("The snake bit itself");
+          throw Error("The snake eats himself!");
         return nextPosition;
       }
     }
@@ -452,7 +452,7 @@ window.addEventListener("DOMContentLoaded", function (event) {
     if (first + 1 == second) return "left";
     if (first - width == second) return "down";
     if (first + width == second) return "up";
-    throw Error("the two tile are not connected");
+    throw Error("Two tiles are not connected!");
   }
 
   // Generates a new apple on the field
